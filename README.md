@@ -25,8 +25,8 @@ Example:
 
 ### Input
 
-![Original](<(https://github.com/luismy2227/blur_images/blob/main/img/input_images/6-fotografia-de-Alejandro-Rodriguez-683x1024.jpg)>)
+![Original](https://github.com/luismy2227/blur_images/blob/main/img/input_images/6-fotografia-de-Alejandro-Rodriguez-683x1024.jpg)
 
 ### Output
 
-![Edited](https://github.com/luismy2227/blur_images/blob/main/imgoutput_images/6-fotografia-de-Alejandro-Rodriguez-683x1024_1200x900.png)
+![Edited](https://github.com/luismy2227/blur_images/blob/main/img/output_images/6-fotografia-de-Alejandro-Rodriguez-683x1024_1200x900.png)
