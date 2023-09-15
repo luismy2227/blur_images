@@ -16,6 +16,12 @@ OUTPUT_FOLDER_ROW = INPUT_FOLDER_ROW + 1
 SIZE_FRAME_ROW = OUTPUT_FOLDER_ROW + 1
 BUTTON_FRAME_ROW = SIZE_FRAME_ROW + 2
 
+# Get the directory of the current script (src directory)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to icon.ico by joining the script directory and the icon filename
+icon_path = os.path.join(script_dir, "..", "icon.ico")
+
 
 def process_images():
     input_folder = input_folder_entry.get()
@@ -51,6 +57,8 @@ def process_images():
 def reset_all():
     input_folder_entry.delete(0, tk.END)
     output_folder_entry.delete(0, tk.END)
+    final_width_entry.delete(0, tk.END)
+    final_height_entry.delete(0, tk.END)
     final_width_entry.insert(0, f'{DEFAULT_WIDTH}')
     final_height_entry.insert(0, f'{DEFAULT_HEIGHT}')
     open_output_folder_button.config(state=tk.DISABLED)
@@ -92,7 +100,9 @@ app = tk.Tk()
 app.title("Image Processor")
 
 # Set a fixed window size (width x height)
-app.geometry("500x200")  # You can change these dimensions as needed
+app.geometry("500x220")  # You can change these dimensions as needed
+app.resizable(False, False)
+app.iconbitmap(icon_path)
 
 # Padding top the first row of widgets
 app.grid_rowconfigure(0, pad=20)
@@ -100,48 +110,50 @@ app.grid_rowconfigure(0, pad=20)
 tk.Label(app, text="Elige la carpeta", font=(
     "Helvetica", 12)).grid(row=INSTRUCTIONS_ROW, columnspan=3)
 
-tk.Label(app, text="Input Folder:").grid(row=INPUT_FOLDER_ROW, column=0)
+tk.Label(app, text="Carpeta Inicial:").grid(row=INPUT_FOLDER_ROW, column=0)
 input_folder_entry = tk.Entry(app, width=50)
 
 input_folder_entry.grid(row=INPUT_FOLDER_ROW, column=1)
-tk.Button(app, text="Browse", command=browse_input_folder).grid(row=1, column=2)
+tk.Button(app, text="Buscar", command=browse_input_folder).grid(
+    row=1, column=2, padx=10)
 
-tk.Label(app, text="Output Folder:").grid(row=OUTPUT_FOLDER_ROW, column=0)
+tk.Label(app, text="Carpeta Resultante:").grid(
+    row=OUTPUT_FOLDER_ROW, column=0, pady=20)
 output_folder_entry = tk.Entry(app, width=50)
 output_folder_entry.grid(row=OUTPUT_FOLDER_ROW, column=1)
-tk.Button(app, text="Browse", command=browse_output_folder).grid(
-    row=2, column=2)
+tk.Button(app, text="Buscar", command=browse_output_folder).grid(
+    row=2, column=2, padx=10)
 
 # Create a frame for the size inputs
 size_frame = tk.Frame(app)
 size_frame.grid(row=SIZE_FRAME_ROW, columnspan=3)
 
-tk.Label(size_frame, text="Final Width:").pack(side=tk.LEFT)
+tk.Label(size_frame, text="Ancho Final:").pack(side=tk.LEFT)
 final_width_entry = tk.Entry(size_frame, width=10)
 final_width_entry.pack(side=tk.LEFT)
 final_width_entry.insert(0, f'{DEFAULT_WIDTH}')  # Prepopulate with 800
 
-tk.Label(size_frame, text="Final Height:").pack(side=tk.LEFT)
+tk.Label(size_frame, text="Altura Final:").pack(side=tk.LEFT, padx=10)
 final_height_entry = tk.Entry(size_frame, width=10)
 final_height_entry.pack(side=tk.LEFT)
 final_height_entry.insert(0, f'{DEFAULT_HEIGHT}')  # Prepopulate with 600
 
 # Create a frame for the buttons in a single row
 button_frame = tk.Frame(app)
-button_frame.grid(row=BUTTON_FRAME_ROW, columnspan=3, pady=20)
+button_frame.grid(row=BUTTON_FRAME_ROW, columnspan=3, pady=20, )
 
 process_button = tk.Button(
     button_frame, text="Process Images", command=process_images)
-process_button.pack(side=tk.LEFT)
+process_button.pack(side=tk.LEFT, padx=10)
 
 # Create a button to reset all inputs
 reset_button = tk.Button(button_frame, text="Reset All", command=reset_all)
-reset_button.pack(side=tk.LEFT)
+reset_button.pack(side=tk.LEFT, padx=10)
 
 # Create a button to open the output folder (initially disabled)
 open_output_folder_button = tk.Button(
     button_frame, text="Open Output Folder", command=open_output_folder, state=tk.DISABLED)
-open_output_folder_button.pack(side=tk.LEFT)
+open_output_folder_button.pack(side=tk.LEFT, padx=10)
 
 
 app.mainloop()

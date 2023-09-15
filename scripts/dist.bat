@@ -1,0 +1,1 @@
+pyinstaller --onefile --windowed --icon=../icon.ico --name=ImageProcesor --add-data "../icon.ico;../" ../src/main.py
