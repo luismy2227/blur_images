@@ -2,7 +2,12 @@ from PIL import Image, ImageFilter
 import os
 
 
-def create_dual_layer_image(input_image_path, output_image_path, final_size):
+# Constants for fixed dimensions
+RESULT_WIDTH = 1200
+RESULT_HEIGHT = 900
+
+
+def create_dual_layer_image(input_image_path, output_image_path, final_size=[RESULT_WIDTH, RESULT_HEIGHT]):
     # Open the input image
     with Image.open(input_image_path) as img:
         # Calculate the dimensions for the foreground layer (centered and smaller image)
@@ -10,6 +15,14 @@ def create_dual_layer_image(input_image_path, output_image_path, final_size):
 
         # Calculate the aspect ratio of the input image
         aspect_ratio = width / height
+
+        # Check if the image is wide enough to fit the desired dimensions without blur
+        if (1.2 <= aspect_ratio <= 1.4):
+            # Resize the image directly to the final dimensions
+            resized_image = img.resize(
+                (RESULT_WIDTH, RESULT_HEIGHT))
+            resized_image.save(output_image_path)
+            return
 
         # Calculate the dimensions for the foreground layer while maintaining aspect ratio
         foreground_width = round(
