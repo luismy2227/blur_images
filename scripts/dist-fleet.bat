@@ -1,0 +1,1 @@
+flet pack -i "icon.ico" -n "Image Processor" src/main.flet.py
